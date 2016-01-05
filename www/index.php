@@ -4,7 +4,7 @@
    require_once(BASE_DIR.'/config.php');
    $config = array();
    $debugString = "";
-   
+
    $options_mm = array('Average' => 'average', 'Spot' => 'spot', 'Backlit' => 'backlit', 'Matrix' => 'matrix');
    $options_em = array('Off' => 'off', 'Auto' => 'auto', 'Night' => 'night', 'Nightpreview' => 'nightpreview', 'Backlight' => 'backlight', 'Spotlight' => 'spotlight', 'Sports' => 'sports', 'Snow' => 'snow', 'Beach' => 'beach', 'Verylong' => 'verylong', 'Fixedfps' => 'fixedfps');
    $options_wb = array('Off' => 'off', 'Auto' => 'auto', 'Sun' => 'sun', 'Cloudy' => 'cloudy', 'Shade' => 'shade', 'Tungsten' => 'tungsten', 'Fluorescent' => 'fluorescent', 'Incandescent' => 'incandescent', 'Flash' => 'flash', 'Horizon' => 'horizon');
@@ -26,7 +26,7 @@
    $options_mf = array('Off' => '0', 'On' => '1');
    $options_cn = array('First' => '1', 'Second' => '2');
    $options_st = array('Off' => '0', 'On' => '1');
-   
+
    function initCamPos() {
       $tr = fopen("pipan_bak.txt", "r");
       if($tr){
@@ -58,7 +58,7 @@
          echo "</div>";
       }
    }
-  
+
    function pilight_controls() {
       echo "<tr>";
         echo "<td>Pi-Light:</td>";
@@ -79,16 +79,16 @@
          }
       }
    }
-   
-  
+
+
    function makeOptions($options, $selKey) {
       global $config;
       switch ($selKey) {
-         case 'flip': 
+         case 'flip':
             $cvalue = (($config['vflip'] == 'true') || ($config['vflip'] == 1) ? 2:0);
             $cvalue += (($config['hflip'] == 'true') || ($config['hflip'] == 1) ? 1:0);
             break;
-         case 'MP4Box': 
+         case 'MP4Box':
             $cvalue = $config[$selKey];
             if ($cvalue == 'background') $cvalue = 2;
             break;
@@ -110,7 +110,7 @@
       global $config, $debugString;
       if ($selKey == '') $selKey = $id;
       switch ($selKey) {
-         case 'tl_interval': 
+         case 'tl_interval':
             if (array_key_exists($selKey, $config)) {
                $value = $config[$selKey] / 10;
             } else {
@@ -128,7 +128,7 @@
       }
       echo "<input type='text' size=$size id='$id' value='$value'>";
    }
-   
+
    function getImgWidth() {
       global $config;
       if($config['vector_preview'])
@@ -136,7 +136,7 @@
       else
          return '';
    }
-   
+
    if (isset($_POST['extrastyle'])) {
       if (file_exists('css/' . $_POST['extrastyle'])) {
          $fp = fopen(BASE_DIR . '/css/extrastyle.txt', "w");
@@ -144,7 +144,7 @@
          fclose($fp);
       }
    }
-   
+
    $toggleButton = "Simple";
    $displayStyle = 'style="display:block;"';
    if(isset($_COOKIE["display_mode"])) {
@@ -153,7 +153,7 @@
          $displayStyle = 'style="display:none;"';
       }
    }
-   
+
    $streamButton = "MJPEG-Stream";
    $mjpegmode = 0;
    if(isset($_COOKIE["stream_mode"])) {
@@ -186,7 +186,7 @@
             </div>
          </div>
       </div>
-      <input id="toggle_display" type="button" class="btn btn-primary" value="<?php echo $toggleButton; ?>" style="position:absolute;top:60px;right:10px;" onclick="set_display(this.value);">
+
       <div class="container-fluid text-center liveimage">
          <div><img id="mjpeg_dest" <?php echo getImgWidth();?> <?php if(file_exists("pipan_on")) echo "ontouchstart=\"pipan_start()\""; ?> onclick="toggle_fullscreen(this);" src="./loading.jpg"></div>
          <div id="main-buttons" <?php echo $displayStyle; ?> >
@@ -204,7 +204,7 @@
          <?php  if($config['motion_external']): ?><a href="motion.php" class="btn btn-default">Edit motion settings</a>&nbsp;&nbsp;<?php endif; ?>
          <a href="schedule.php" class="btn btn-default">Edit schedule settings</a>
       </div>
-    
+
       <div class="container-fluid text-center">
          <div class="panel-group" id="accordion" <?php echo $displayStyle; ?> >
             <div class="panel panel-default">
@@ -233,7 +233,7 @@
                               <input type="button" value="OK" onclick="set_res();">
                            </td>
                         </tr>
-                        <?php  if($config['camera_num'] > 0): ?> 
+                        <?php  if($config['camera_num'] > 0): ?>
                         <tr>
                            <td>Camera select (Compute module only)</td>
                            <td>
@@ -472,5 +472,6 @@
          </div>
       </div>
       <?php if ($debugString != "") echo "$debugString<br>"; ?>
+      <input id="toggle_display" type="button" class="btn btn-primary" value="<?php echo $toggleButton; ?>" onclick="set_display(this.value);">
    </body>
 </html>
