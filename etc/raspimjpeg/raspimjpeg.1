@@ -53,7 +53,7 @@ camera_num 0
 # fps_preview = video_fps (below) / divider
 #
 width 512
-quality 25
+quality 10
 divider 1
 
 #
@@ -75,7 +75,7 @@ MP4Box_fps 25
 #
 image_width 2592
 image_height 1944
-image_quality 85
+image_quality 10
 
 #time lapse interval 0.1 sec units
 tl_interval 30
@@ -111,6 +111,7 @@ status_file /dev/shm/mjpeg/status_mjpeg.txt
 control_file /var/www/FIFO
 media_path /var/www/media
 macros_path /var/www/macros
+user_annotate /dev/shm/mjpeg/user_annotate.txt
 boxing_path
 subdir_char @
 
@@ -121,6 +122,7 @@ end_img &end_img.sh
 start_vid &start_vid.sh
 end_vid end_vid.sh
 end_box &end_box.sh
+do_cmd &do_cmd.sh
 
 # thumb generator control
 # Set v, i, or t in string to enable thumbs for images, videos, or lapse

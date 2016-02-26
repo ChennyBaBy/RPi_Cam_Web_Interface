@@ -171,7 +171,6 @@ else
 AuthName "RPi Cam Web Interface Restricted Area"
 AuthType Basic
 AuthUserFile /usr/local/.htpasswd
-AuthGroupFile /dev/null
 Require valid-user
 EOF
       sudo chown -R www-data:www-data /var/www$rpicamdir/.htaccess
@@ -337,6 +336,10 @@ fi
 if [ -e /var/www$rpicamdir/status_mjpeg.txt ]; then
    sudo rm /var/www$rpicamdir/status_mjpeg.txt
 fi
+if [ ! -e /run/shm/mjpeg/status_mjpeg.txt ]; then
+   echo -n 'halted' > /run/shm/mjpeg/status_mjpeg.txt
+fi
+sudo chown www-data:www-data /run/shm/mjpeg/status_mjpeg.txt
 sudo ln -sf /run/shm/mjpeg/status_mjpeg.txt /var/www$rpicamdir/status_mjpeg.txt
 
 sudo chown -R www-data:www-data /var/www$rpicamdir
